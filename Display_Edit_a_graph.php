@@ -6,10 +6,14 @@ require 'dbconnect.php';
 
 // Build sql  - Table 1 Questions by count
 $sql_selectEdit1 = "SELECT qQuestionNumber, qQuestion, 
-	qResponse1, (Select count(aResponse) from tbl_poll_a where aResponse = qResponse1) as 'Response1Count',
-    qResponse2, (Select count(aResponse) from tbl_poll_a where aResponse = qResponse2) as 'Response2Count',
-    qResponse3, (Select count(aResponse) from tbl_poll_a where aResponse = qResponse3) as 'Response3Count',
-    qResponse4, (Select count(aResponse) from tbl_poll_a where aResponse = qResponse4) as 'Response4Count'
+	qResponse1, (Select count(aResponse) from tbl_poll_a 
+                 where aResponse = qResponse1 and aQuestion_Id = qQuestion_Id) as 'Response1Count',
+    qResponse2, (Select count(aResponse) from tbl_poll_a 
+                 where aResponse = qResponse2 and aQuestion_Id = qQuestion_Id) as 'Response2Count',
+    qResponse3, (Select count(aResponse) from tbl_poll_a 
+                 where aResponse = qResponse3 and aQuestion_Id = qQuestion_Id) as 'Response3Count',
+    qResponse4, (Select count(aResponse) from tbl_poll_a 
+                 where aResponse = qResponse4 and aQuestion_Id = qQuestion_Id) as 'Response4Count'
 FROM tbl_poll_a 
 Inner Join tbl_poll_q  on aQuestion_Id = qQuestion_Id
 Group By qQuestionNumber

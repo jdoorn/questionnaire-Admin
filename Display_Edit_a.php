@@ -4,10 +4,14 @@ require 'dbconnect.php';
 
 // Build sql  - Table 1 Questions by count
 $sql_selectEdit1 = "SELECT qQuestionNumber, qQuestion, 
-	qResponse1, (Select count(aResponse) from tbl_poll_a where aResponse = qResponse1) as 'Response1Count',
-    qResponse2, (Select count(aResponse) from tbl_poll_a where aResponse = qResponse2) as 'Response2Count',
-    qResponse3, (Select count(aResponse) from tbl_poll_a where aResponse = qResponse3) as 'Response3Count',
-    qResponse4, (Select count(aResponse) from tbl_poll_a where aResponse = qResponse4) as 'Response4Count'
+	qResponse1, (Select count(aResponse) from tbl_poll_a 
+                 where aResponse = qResponse1 and aQuestion_Id = qQuestion_Id) as 'Response1Count',
+    qResponse2, (Select count(aResponse) from tbl_poll_a 
+                 where aResponse = qResponse2 and aQuestion_Id = qQuestion_Id) as 'Response2Count',
+    qResponse3, (Select count(aResponse) from tbl_poll_a 
+                 where aResponse = qResponse3 and aQuestion_Id = qQuestion_Id) as 'Response3Count',
+    qResponse4, (Select count(aResponse) from tbl_poll_a 
+                 where aResponse = qResponse4 and aQuestion_Id = qQuestion_Id) as 'Response4Count'
 FROM tbl_poll_a 
 Inner Join tbl_poll_q  on aQuestion_Id = qQuestion_Id
 Group By qQuestionNumber
@@ -20,43 +24,44 @@ $result_edit1 = $pdo->query($sql_selectEdit1);
 $sql_selectEdit1_1 = "SELECT qQuestionNumber, qQuestion, 
 -- 1st Response 
 	  qResponse1,
-	 (Select count(*) from tbl_poll_a where aResponse = qResponse1) as 'R_1_Count',
+	 (Select count(*) from tbl_poll_a 
+      where aResponse = qResponse1 and aQuestion_Id = qQuestion_Id) as 'R_1_Count',
      	 FORMAT((Select count(*)/(select count(*) 
                                    FROM tbl_poll_a x 
                                    where x.aQuestion_Id = qQuestion_Id 
                                    ) * 100
       from tbl_poll_a y 
-      where y.aResponse = qResponse1
+      where y.aResponse = qResponse1 and y.aQuestion_Id = qQuestion_Id
       and   y.aQuestion_Id = aQuestion_Id),0) as 'R_1_Pct', 
 -- 2nd Response 
 	  qResponse2,
-	 (Select count(*) from tbl_poll_a where aResponse = qResponse2) as 'R_2_Count',
+	 (Select count(*) from tbl_poll_a where aResponse = qResponse2 and aQuestion_Id = qQuestion_Id) as 'R_2_Count',
      	  FORMAT((Select count(*)/(select count(*) 
                                    FROM tbl_poll_a x 
                                    where x.aQuestion_Id = qQuestion_Id 
                                    ) * 100
       from tbl_poll_a y 
-      where y.aResponse = qResponse2
+      where y.aResponse = qResponse2 and y.aQuestion_Id = qQuestion_Id
       and   y.aQuestion_Id = aQuestion_Id),0) as 'R_2_Pct', 
 -- 3rd Response
 	  qResponse3,
-	 (Select count(*) from tbl_poll_a where aResponse = qResponse3) as 'R_3_Count',
+	 (Select count(*) from tbl_poll_a where aResponse = qResponse3 and aQuestion_Id = qQuestion_Id) as 'R_3_Count',
      	 FORMAT((Select count(*)/(select count(*) 
                                    FROM tbl_poll_a x 
                                    where x.aQuestion_Id = qQuestion_Id 
                                    ) * 100
       from tbl_poll_a y 
-      where y.aResponse = qResponse3
+      where y.aResponse = qResponse3 and y.aQuestion_Id = qQuestion_Id
       and   y.aQuestion_Id = aQuestion_Id),0) as 'R_3_Pct', 
 -- 4th Response  
 	  qResponse4,
-	 (Select count(*) from tbl_poll_a where aResponse = qResponse4) as 'R_4_Count',
+	 (Select count(*) from tbl_poll_a where aResponse = qResponse4 and aQuestion_Id = qQuestion_Id) as 'R_4_Count',
      	  FORMAT((Select count(*)/(select count(*) 
                                    FROM tbl_poll_a x 
                                    where x.aQuestion_Id = qQuestion_Id 
                                    ) * 100
       from tbl_poll_a y 
-      where y.aResponse = qResponse4
+      where y.aResponse = qResponse4 and y.aQuestion_Id = qQuestion_Id
       and   y.aQuestion_Id = aQuestion_Id),0) as 'R_4_Pct'       
 FROM tbl_poll_a 
 Inner Join tbl_poll_q  on aQuestion_Id = qQuestion_Id
