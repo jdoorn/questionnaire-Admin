@@ -30,15 +30,13 @@ $result = $pdo->query($sql_question);
 		padding: 3px;
 		font-weight: bold;
 	}
-}
 	td {
 		text-align: left;
 		padding: 3px;
-		width: 250px;
+		min-width: 880px;
+		color: black;
 	}
-	input {
-		width: 800px;
-	}
+
 	#submitbutton {
 		width: 200px;
 		margin-left: 400px;
@@ -78,17 +76,14 @@ echo('
     </thead>
         <tr>
 			<th>Select</th>
-			<td><select id="Response" name="Response'.$_SESSION['cntr'].'" required> 
-			
-                <option value="">Select</option>.
-				<option value="'.$row ['qResponse1'].'">'.
-                            $row ['qResponse1'].'</option>
-                <option value="'.$row ['qResponse2'].'">'.
-                            $row ['qResponse2'].'</option>
-                <option value="'.$row ['qResponse3'].'">'.
-                            $row ['qResponse3'].'</option>
-                <option value="'.$row ['qResponse4'].'">'.
-                            $row ['qResponse4'].'</option>
+			<td><input type="radio" name="Response'.$_SESSION['cntr'].'" 
+							value="'.$row ['qResponse1'].'">'.$row ['qResponse1'].' &nbsp; &nbsp;
+				<input type="radio" name="Response'.$_SESSION['cntr'].'" 
+							value="'.$row ['qResponse2'].'">'.$row ['qResponse2'].' &nbsp; &nbsp;
+				<input type="radio" name="Response'.$_SESSION['cntr'].'" 
+							value="'.$row ['qResponse3'].'">'.$row ['qResponse3'].' &nbsp; &nbsp;				
+				<input type="radio" name="Response'.$_SESSION['cntr'].'" 
+							value="'.$row ['qResponse4'].'">'.$row ['qResponse4'].' &nbsp; &nbsp;			
 		</td>
 		</tr>
 

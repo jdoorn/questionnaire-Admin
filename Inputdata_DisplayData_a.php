@@ -4,6 +4,7 @@
 
 require 'dbconnect.php';
 
+
 //Build sql - get next aResponse_Id for set of questions
 $sql_select = "SELECT aResponse_Id + 1 as next_response 
 FROM tbl_poll_a 
@@ -13,8 +14,34 @@ LIMIT 1";
 //run the query                  
 $result_select = $pdo->query($sql_select);
 
+$recordsexist = $result_select-> rowCount();
+
+if($recordsexist==0){
+//Build sql - set next aResponse_Id = 1
+$sql_select1 = "SELECT 1 as next_response 
+FROM tbl_poll_q 
+order by qQuestion_Id desc
+LIMIT 1";
+
+//run the query                  
+$result_select = $pdo->query($sql_select1);
+$recordsexist = $result_select-> rowCount();
+}
+print_r($recordsexist);
 $row1 = $result_select->fetch();
 
+  /*
+//Build sql - get next aResponse_Id for set of questions
+$sql_select = "SELECT qQuestion_Id, 1 as next_response 
+FROM tbl_poll_q 
+order by qQuestion_Id desc
+LIMIT 1";
+
+//run the query                  
+$result_select = $pdo->query($sql_select);
+
+$row1 = $result_select->fetch();
+*/
 for($c = 0; $c < $_SESSION['cntr']; $c++)
 
 {
