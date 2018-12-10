@@ -36,7 +36,9 @@ $result = $pdo->query($sql_question);
 		min-width: 880px;
 		color: black;
 	}
-
+	#commentbox input{
+		width: 880px;
+	}
 	#submitbutton {
 		width: 200px;
 		margin-left: 400px;
@@ -94,7 +96,8 @@ echo('
 		<tr>
 			</td>
 			<th>Comment</th>
-			<td><input type="text" width="250" name="Comment'.$_SESSION['cntr'].'"">
+			<td><div id="commentbox"><input type="text" width="250" name="Comment'.$_SESSION['cntr'].'"">
+			</div>
 			</td>
 		</tr>
 		</table>
